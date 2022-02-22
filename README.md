@@ -13,6 +13,6 @@ Data and code for RNASeq and PAM data sampled during short-term thermal stress a
 7.	Differential expression of transcripts performed using DESeq2_results.r
 8.	GO enrichment analysised performed using GO_enrichment_topGO.r
 9.	Heatgrid of GO enriched terms using Heatgrid_GO_enrichment.r
-10.	Heatgrid of DE transcripts using Heatgrid_DETS_heat_stress.r (Rscript_heatgrid_heat_hypoxia_SELECTED_genes.r)
-11.	Scatterplot of FPKM across heating temperatures using FPKM_scatter_plots.r (Rscript_CBASS_HH_fpkm_scatterplots.r)
+10.	Heatgrid of DE transcripts using Heatgrid_DETS_heat_stress.r
+11.	Scatterplot of FPKM across heating temperatures using FPKM_scatter_plots.r
 12. Dose-response curves to determine ED50 of FvFm over temperature using DRC_PAM_ED50.r

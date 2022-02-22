@@ -3,7 +3,7 @@
 Data and code related to running short-term thermal stress assays using CBASS under normal and reduced oxygen conditions
 
 ### Workflow
-***
+
 1.	De novo transcriptome was assembled using Denovo_transcriptome_assembly.sh
 2.	Then filtered to only sequences =>500 bp using Filtering_transcriptome.r
 3.	Reads were then mapped to transcriptome using Mapping_to_filtered_transcriptome.sh

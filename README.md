@@ -1,6 +1,6 @@
 # CBASS_hypoxia
 
-Data and code related to running short-term thermal stress assays using CBASS under normal and reduced oxygen conditions
+Data and code for RNASeq and PAM data sampled during short-term thermal stress assays using CBASS under normal and reduced oxygen conditions.
 
 ### Workflow
 

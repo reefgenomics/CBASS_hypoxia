@@ -1,6 +1,8 @@
 # CBASS_hypoxia
 
-Data and code for RNASeq and PAM data sampled during short-term thermal stress assays using CBASS under normal and reduced oxygen conditions.
+Data and code for RNASeq analysis and determining ED50 of FvFm over temperature.
+
+Project: Short-term thermal stress assays using CBASS under normal and reduced oxygen conditions.
 
 ### Workflow
 

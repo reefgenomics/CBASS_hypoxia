@@ -13,7 +13,6 @@ pamdata$Treatment<-as.factor(pamdata$Treatment)
 pamdata$TreatmentTemp<-paste0(pamdata$Treatment,pamdata$Temperature)
 pamdata$RepTemp<-paste0(pamdata$Temperature, '_', pamdata$Replicate)
 pamdata$Replicate2<-paste0(pamdata$Treatment, '_', pamdata$Replicate)
-pamdata$Replicate3<-as.factor(pamdata$Replicate2)
 pamdata$FacTemp<-as.factor(pamdata$Temperature)
 aggregate(PAM~Treatment + Temperature, data=pamdata, summary )
 

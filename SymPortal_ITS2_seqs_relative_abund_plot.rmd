@@ -1,0 +1,70 @@
+```{r}
+library(tidyverse)
+library(phyloseq)
+library(Biostrings)
+library(RColorBrewer)
+
+# file from post_med_seqs
+post_med <- read_tsv("./Input_files/183_20211007_03_DBV_20211008T013033.seqs.absolute.abund_and_meta.txt") %>%
+  filter(sample_uid != "seq_accession")
+
+# Retrieve sample_data from symportal table
+sample_data <- post_med %>%
+  select(sample_uid:collection_depth) %>%
+  tibble::column_to_rownames(var = "sample_name") %>%
+  sample_data()
+
+# Create taxa_table from symportal_table
+names<-colnames(post_med)[40:ncol(post_med)]
+tax_tab <- data.frame(ITS2type = names) %>%
+  mutate(ID = paste0("PM_", ITS2type)) %>%
+  mutate(Genus = case_when(str_sub(ITS2type, start = 1, end = 1) == "C" ~ 'Cladocopium',
+                           str_sub(ITS2type, start = 1, end = 1) == "D" ~ 'Durusdinium', 
+                           str_sub(ITS2type, start = 1, end = 1) == "B" ~ 'Breviolum',
+                           str_sub(ITS2type, start = 1, end = 1) == "A" ~ 'Symbiodinium',
+                           str_detect(ITS2type, "_C") ~ "Cladocopium",
+                           str_detect(ITS2type, "_D") ~ "Durusdinium",
+                           str_detect(ITS2type, "_B") ~ "Breviolum",
+                           str_detect(ITS2type, "_A") ~ "Symbiodinium",
+                           TRUE ~ "Other")) %>%
+  mutate(Kingdom = "Eukaryota",
+         Phylum = "Dinoflagellata",
+         Order = "Dinophyceae",
+         Class = "Suessiales",
+         Family = "Symbiodiniaceae") %>%
+  tibble::column_to_rownames(var = "ID") %>%
+  select(Kingdom, Phylum, Order, Class, Family, Genus, ITS2type) %>%
+  as.matrix() %>%
+  tax_table()
+
+# Create otu_table from symportal table
+otu_tab <- post_med %>%
+  select(2,40:ncol(.)) %>%
+  tibble::column_to_rownames(var = "sample_name")
+
+colnames(otu_tab) <- taxa_names(tax_tab)
+otu_tab <- otu_table(otu_tab, taxa_are_rows = FALSE)
+
+refseq <- readDNAStringSet("./Input_files/183_20211007_03_DBV_20211008T013033.seqs.fasta")
+names(refseq) <- paste0("PM_", names(refseq))
+
+# Create Phyloseq object
+ps <- phyloseq(otu_tab, tax_tab, sample_data, refseq)
+
+library(randomcoloR)
+n <- 63
+palette <- distinctColorPalette(n)
+
+ps %>% psmelt() %>%
+  ggplot(aes(x = Sample, y = Abundance)) +
+  geom_bar(stat = "identity", aes(fill = as.factor(ITS2type)), position = "fill") + 
+  scale_y_continuous(labels = scales::percent) +
+  guides(fill = guide_legend(ncol = 4)) +
+  scale_fill_manual(values= palette) + #added this as default merged groups
+  #scale_fill_manual(values=colorRampPalette((brewer.pal(56, "Paired")))) +
+  #scale_fill_manual(values=colorRampPalette((brewer.pal(12, "Paired"))(colour_Count))) +
+  theme(aspect.ratio = 1, axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5), legend.position = "none") +
+  theme(axis.text = element_text(size= 12))+
+  theme(axis.title = element_text(size= 14))+
+  ylab("Relative Abundance (%)")
+```

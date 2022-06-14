@@ -96,21 +96,22 @@ Sytes<-c("H0","Hd")
 Colorz<-c('#CCCCFF','#9933CC')
 Syms<-c(19,17)
 temp_x<- seq(29, 40, length = 100)
-Denscity <- 45
+Density <- 45
 
 pdf("./CBASS_Hd_H0_DRCCurves.pdf",10,7)
-
+par(mar=c(5,6,4,1)+.1)
+          
 line_width=2 
 offsets<-c(0.1875,0.0625,-0.0625,-0.1875)
 i<-1 #H0
 matplot(temp_x, predict(DRCpamH0, data.frame(Temperature = temp_x), interval= "confidence"),
         type="n",col=Colorz[i],lty=c(1,3,3),lwd=line_width,ylab="Fv/Fm",xlab="Temperature [°C]", xlim=c(29,40),ylim=c(0,0.65), cex.axis=2.5, cex.lab=2.5)
-polygon(c(temp_x, rev(temp_x)),c(predict(DRCpamH0, data.frame(Temp = temp_x), interval="confidence")[,2],rev(predict(DRCpamH0, data.frame(Temp = temp_x), interval="confidence")[,3])), col=Colorz[i], density = Denscity)
+polygon(c(temp_x, rev(temp_x)),c(predict(DRCpamH0, data.frame(Temp = temp_x), interval="confidence")[,2],rev(predict(DRCpamH0, data.frame(Temp = temp_x), interval="confidence")[,3])), col=Colorz[i], density = Density)
 matpoints(temp_x, predict(DRCpamH0, data.frame(Temp = temp_x), interval="confidence"),
           type="l",col=Colorz[i],lty=c(1,3,3),lwd=line_width)
 with(pamdata[pamdata$Treatment==Sytes[i],],matpoints(Temperature-offsets[i],PAM,pch=Syms[i], col=Colorz[i], cex=2.5))
 i<-2 #Hd
-polygon(c(temp_x, rev(temp_x)),c(predict(DRCpamHd, data.frame(Temp = temp_x), interval="confidence")[,2],rev(predict(DRCpamHd, data.frame(Temp = temp_x), interval="confidence")[,3])), col=Colorz[i], density = Denscity)
+polygon(c(temp_x, rev(temp_x)),c(predict(DRCpamHd, data.frame(Temp = temp_x), interval="confidence")[,2],rev(predict(DRCpamHd, data.frame(Temp = temp_x), interval="confidence")[,3])), col=Colorz[i], density = Density)
 matpoints(temp_x, predict(DRCpamHd, data.frame(Temperature = temp_x), interval= "confidence"),
           type="l",col=Colorz[i],lty=c(1,3,3),lwd=line_width)
 with(pamdata[pamdata$Treatment==Sytes[i],],matpoints(Temperature-offsets[i],PAM,pch=Syms[i], col=Colorz[i], cex=2.5))

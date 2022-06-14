@@ -18,5 +18,6 @@ Data and code for RNASeq analysis and determining ED50 of FvFm over temperature.
 10.	Heatgrid of DE transcripts using `Heatgrid_DETS_heat_stress.r`
 11.	Scatterplot of FPKM across heating temperatures using `FPKM_scatter_plots.r`
 12. Dose-response curves to determine ED50 of FvFm over temperature using `DRC_PAM_ED50.r`
-13. Relative abundance plot of SymPortal ITS2 sequences using `SymPortal_ITS2_seqs_relative_abund_plot.rmd`
-14. Relative abundance plot of SymPortal ITS2 profiles using `SymPortal_ITS2_profiles_relative_abund_plot.r`
+13. Dose-response curves to determine ED50 of BIS over temperature using `DRC_BIS_ED50.r`
+14. Relative abundance plot of SymPortal ITS2 sequences using `SymPortal_ITS2_seqs_relative_abund_plot.rmd`
+15. Relative abundance plot of SymPortal ITS2 profiles using `SymPortal_ITS2_profiles_relative_abund_plot.r`
